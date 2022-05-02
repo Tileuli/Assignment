@@ -1,4 +1,4 @@
-public class Main {
+public class assignment_13 {
  public static void main(String[] args) {
   Object object1 = new Object();
   Object object2 = new Object();
