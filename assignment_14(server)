@@ -1,0 +1,47 @@
+public class Server extends Application {
+	private TextArea ta = new TextArea();
+	private int threadNo = 0;
+	@Override 
+	public void start(Stage primaryStage) {
+		Scene scene = new Scene(new ScrollPane(ta), 450, 200);
+		primaryStage.setTitle("31.4");
+		primaryStage.setScene(scene);
+		primaryStage.show();
+		new Thread(() -> {
+			try {
+				ServerSocket serverSocket = new ServerSocket(8000);
+				ta.appendText("31.4 " + new Date() + '\n');
+				while (true) {
+					Socket socket = serverSocket.accept();
+					Platform.runLater(() -> {
+						ta.appendText("Starting thread " + threadNo++ + '\n');
+						InetAddress inetAddress = socket.getInetAddress();
+						ta.appendText("Client IP /" + 
+							inetAddress.getHostAddress() + '\n');
+					});
+					new Thread(new HandleAClient(socket)).start();
+				}	
+			}
+			catch(IOException ex) {
+				System.err.println(ex);
+			}
+		}).start();
+	}
+	class HandleAClient implements Runnable {
+		private Socket socket; // A connected socket
+		public HandleAClient(Socket socket) {
+			this.socket = socket;
+		}
+		public void run() {
+			try {
+				// Create a data output stream
+				DataOutputStream outputToClient = new DataOutputStream(
+					socket.getOutputStream());
+				outputToClient.writeUTF("You are visitor " + threadNo);
+			}
+			catch (IOException ex) {
+				ex.printStackTrace();
+			}
+		}
+	}
+}
