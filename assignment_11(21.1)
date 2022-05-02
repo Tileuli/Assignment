@@ -1,4 +1,4 @@
-public class Main {
+public class assignment_11 {
     public static void main(String[] args) throws FileNotFoundException {
     LinkedHashSet<String> set1 = new LinkedHashSet<>();
         set1.add("George");
