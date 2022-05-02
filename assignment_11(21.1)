@@ -1,10 +1,4 @@
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.util.*;
-import java.util.LinkedHashSet;
-
 public class Main {
-
     public static void main(String[] args) throws FileNotFoundException {
     LinkedHashSet<String> set1 = new LinkedHashSet<>();
         set1.add("George");
