@@ -1,0 +1,98 @@
+public class HelloApplication extends Application {
+
+    private Circle circle;
+    private String totalTime = "";
+    int ans;
+
+    @Override // Override the start method in the Application class
+    public void start(Stage primaryStage) throws Exception {
+     Rectangle main = new Rectangle(125, 40);
+        Polygon roof = new Polygon();
+        Circle circle = new Circle(15);
+        Circle circle1 = new Circle(15);
+
+        circle.setLayoutX(40);
+        circle.setLayoutY(71);
+        circle1.setLayoutX(120);
+        circle1.setLayoutY(71);
+        Line line = new Line(20,200,700,200);
+        PathTransition pathTransition = new PathTransition();
+        Group group = new Group();
+        group.getChildren().addAll(main,roof,circle, circle1);
+
+        pathTransition.setRate(1);
+        pathTransition.setNode(group);
+
+
+
+        pathTransition.setPath(line);
+        pathTransition.setCycleCount(-1);
+        pathTransition.play();
+
+        roof.getPoints().addAll(new Double[]{
+                0.0,20.0,
+                100.0,20.0,
+                80.0, 0.0,
+                20.0, 0.0,
+
+        });
+
+        Button button = new Button("Resume");
+        Button button1 = new Button("Stop");
+        Button button2 = new Button("Increase");
+        Button button3 = new Button("Decrease");
+
+        button.setLayoutX(300);
+        button.setLayoutY(300);
+        button1.setLayoutX(360);
+        button1.setLayoutY(300);
+        button2.setLayoutX(400);
+        button2.setLayoutY(300);
+        button3.setLayoutX(450);
+        button3.setLayoutY(300);
+
+        Group group1 = new Group(button,button1,button2, button3);
+        button1.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                pathTransition.stop();
+            }
+        });
+        button.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                pathTransition.play();
+            }
+        });
+        button3.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                ans-=1;
+                pathTransition.setRate(ans);
+            }
+        });
+        button2.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent actionEvent) {
+                ans+=1;
+                pathTransition.setRate(ans);
+            }
+        });
+
+
+        main.setLayoutX(15);
+        main.setLayoutY(20);
+        roof.setLayoutX(25);
+        Pane pane = new Pane();
+        pane.getChildren().add(group);
+        pane.getChildren().add(group1);
+        Scene scene =  new Scene(pane, 600, 600);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+       }
+       
+        public static void main(String[] args) {
+        launch();
+    }
+    }
