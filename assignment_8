@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Exercise_17_01 {
+public class assignment_8 {
 	public static void main(String[] args) throws FileNotFoundException {
 		
 		ArrayList<String> list = new ArrayList<>();
